@@ -1,7 +1,19 @@
-//Aqui podemos importar librerias o componentes
+import type { CartItem, Guitar } from "../types";
 
+type headerProps = {
+    cart: CartItem[]
+    //De esta manera le decimos al codigo que la funcion no retorna nada
+    removeFromCart: (id: Guitar['id']) => void
+    increaseQuantity: (id: Guitar['id']) => void
+    decrementQuantity: (id: Guitar['id']) => void
+    clearCart:() => void
+    isEmpty: boolean
+    cartTotal: number
+}
+
+//Aqui podemos importar librerias o componentes
 function Header ({cart, removeFromCart, increaseQuantity, decrementQuantity, clearCart, isEmpty,
-        cartTotal}) {
+        cartTotal} : headerProps) {
     //Aqui van a ir nuestras states o funciones
     //const name = 'Monica'
     //Todo lo que este dentro del return se muestra

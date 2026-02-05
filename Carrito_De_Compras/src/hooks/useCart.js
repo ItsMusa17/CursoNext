@@ -1,12 +1,11 @@
 //Estps hooks funcionan como funciones de js
-import { db } from '../data/db';
+import {db} from '../db.js'
 import {useEffect, useState} from 'react'
 import { useMemo } from "react";
-import  type { Guitar, CartItem} from '../types'
 
 export const useCart = () => {
     //Inicializar la database
-    const initialCart = () : CartItem[] => {
+    const initialCart = () => {
         const localStorageCart = localStorage.getItem('cart')
         return localStorageCart ? JSON.parse(localStorageCart) : []
     }
@@ -20,7 +19,7 @@ export const useCart = () => {
     }, [cart]) // De esta manera le decimos que solo haga esta accion cuando el evento ya haya finalizado
 
 
-    function addToCart(item : Guitar){
+    function addToCart(item){
         //findIndex identifica si el iteam ya existe de no ser asi, manda un -1, si eciste manda la posicion de dicho item
         const itemExist = cart.findIndex((guitar) => guitar.id === item.id)
 
@@ -30,21 +29,20 @@ export const useCart = () => {
             updateCart[itemExist].quantity++
             setCart(updateCart) //Le enviamos todo el carrito nuevamente
         }else{
-            //Lo que hacemos en tomar solola propiedad y cambiarle el tipo de dato dentro
-            const newItem : CartItem = {...item, quantity : 1}
-            setCart([...cart, newItem])
+            item.quantity = 1 //Agregamos una propiedad que nos indica la cantodad de ese mismo item
+            setCart([...cart, item])
         }
     }
 
     //Funcion para eliminar un item del carrito
-    function removeFromCart(id : Guitar['id']){
+    function removeFromCart(id){
         //Buscamos los elementos diferentes, debido a que solo queremos eliminar 
         //el que se esta presionando
         setCart(prevCart => prevCart.filter(guitar => guitar.id != id))
     }
 
     //Uso de boton +
-    function increaseQuantity(id : Guitar['id']){
+    function increaseQuantity(id){
         const updateCart = cart.map(item => {
             if(item.id === id && item.quantity < 5){
                 return{
@@ -58,7 +56,7 @@ export const useCart = () => {
     }
 
     //Reto 1 decremento de cantidades 
-    function decrementQuantity(id : Guitar['id']){
+    function decrementQuantity(id){
         const updateCart = cart.map(item => {
             if(item.id === id && item.quantity > 1){
                 return{
@@ -83,7 +81,7 @@ export const useCart = () => {
 
     /*Funcion para obtener el total del carrito y mandarlo a mostrar
         total funciona como variable al igual que item, de manera que sumamos lo que ya tenemos*/
-    const cartTotal = useMemo(() => cart.reduce((total, item) => total + (item.quantity * item.price), 0), [cart])
+    //const cartTotal = useMemo(() => cart.reduce((total, item) => total + (item.quantity * item.price), 0))
 
     //Siempre se recomienda tener un return que sea un objeto
     return {

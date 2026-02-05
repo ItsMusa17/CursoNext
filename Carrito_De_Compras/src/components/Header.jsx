@@ -1,19 +1,11 @@
 //Aqui podemos importar librerias o componentes
-import { useMemo } from "react";
 
-function Header ({cart, removeFromCart, increaseQuantity, decrementQuantity, clearCart}) {
+function Header ({cart, removeFromCart, increaseQuantity, decrementQuantity, clearCart, isEmpty,
+        cartTotal}) {
     //Aqui van a ir nuestras states o funciones
     //const name = 'Monica'
     //Todo lo que este dentro del return se muestra
 
-    //State Derivado
-    /*useMemo, nos permite que cuando se precione el boton no se haga un render de la aplicacion
-    completa, si no que solo de este state*/
-    const isEmpty = useMemo(() => cart.length === 0, [cart]) //Cuando el carrito cambie
-
-    /*Funcion para obtener el total del carrito y mandarlo a mostrar
-        total funciona como variable al igual que item, de manera que sumamos lo que ya tenemos*/
-    const cartTotal = useMemo(() => cart.reduce((total, item) => total + (item.quantity * item.price), 0))
     return (
         //Para poder compilar codigo JS se necesita estar entre {}
         //<p>Nombre: {name}</p>
@@ -22,14 +14,14 @@ function Header ({cart, removeFromCart, increaseQuantity, decrementQuantity, cle
             <div className= "row justify-content-center justify-content-md-between">
                 <div className= "col-8 col-md-3">
                     <a href="index.html">
-                        <img className= "img-fluid" src="./public/img/logo.svg" alt="imagen logo" />
+                        <img className= "img-fluid" src="/img/logo.svg" alt="imagen logo" />
                     </a>
                 </div>
                 <nav className= "col-md-6 a mt-5 d-flex align-items-start justify-content-end">
                     <div 
                         className= "carrito"
                     >
-                        <img className= "img-fluid" src="./public/img/carrito.png" alt="imagen carrito" />
+                        <img className= "img-fluid" src="/img/carrito.png" alt="imagen carrito" />
 
                         <div id="carrito" className= "bg-white p-3">
                             

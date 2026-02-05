@@ -1,11 +1,4 @@
-//EJEMPLO DE TYPE 
-type Guitar = {
-    id : number
-    name : String
-    image : string
-    description : string
-    price : number
-}
+import type {Guitar} from '../types'
 
 //Lo que se hace es explicar el tipo de dato de varios objetos en un arreglo
 export const db : Guitar[] = [

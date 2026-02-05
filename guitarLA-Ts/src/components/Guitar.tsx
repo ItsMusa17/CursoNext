@@ -1,20 +1,13 @@
-type Guitar = {
-    id : number
-    name : String
-    image : string
-    description : string
-    price : number
-}
+import type {Guitar} from '../types'
 
 //Sintaxis de type separado
-type GuitarProps = {
+export type GuitarProps = {
     guitar : Guitar,
     addToCart : (item: Guitar) => void
 }
 
 //Sintaxis de typeline
 //export default function Guitar({guitar, addToCart} : {guitar : Guitar, addToCart:(item : Guitar) => void}){
-
 export default function Guitar({guitar, addToCart} : GuitarProps){
 
     //Aplicamos un arreglo con los objetos 
